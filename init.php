@@ -40,7 +40,7 @@ $tableName = 'people';
 $tbllist = db_listTablesLike($tableName,$dbh);
 if (sizeof($tbllist) == 0) {
   //if table does not exist create table and its specific columns
-  echo "table " . $tableName . " does not exist. attempting to create.\n\r"
+  echo "table " . $tableName . " does not exist. attempting to create.\n\r";
   createNewPeople($dbh);
 }
 else {
@@ -65,7 +65,7 @@ $tableName = 'states';
 $tbllist = db_listTablesLike($tableName,$dbh);
 if (sizeof($tbllist) == 0) {
   //if table does not exist create table and its specific columns
-  echo "table " . $tableName . " does not exist. attempting to create.\n\r"
+  echo "table " . $tableName . " does not exist. attempting to create.\n\r";
   createNewStates($dbh);
 }
 else {
@@ -89,7 +89,7 @@ $tableName = 'visits';
 $tbllist = db_listTablesLike($tableName,$dbh);
 if (sizeof($tbllist) == 0) {
   //if table does not exist create table and its specific columns
-  echo "table " . $tableName . " does not exist. attempting to create.\n\r"
+  echo "table " . $tableName . " does not exist. attempting to create.\n\r";
   createNewVisits($dbh);
 }
 else {
@@ -111,13 +111,29 @@ else {
 
 //see how many rows are in states
 //if it's empty, initialize from states.txt
+$fileName = 'states.txt';
 $sql = "SELECT * FROM states";
 $statement = db_tryQuery($sql,$dbh);
 $result = $statement->fetchAll();
 if(sizeof($result) == 0) {
-  echo "table 'states' empty. attempting to fill.\n\r"
-  $sql = "LOAD DATA LOCAL INFILE 'states.txt' INTO TABLE states"
-  $statement = db_tryQuery($sql,$dbh);
+  echo "table 'states' empty. attempting to fill.\n\r";
+  //open file for import
+  if(($fh = fopen($fileName,"r")) !== FALSE) {
+    //grab each line in the file
+    while(($data = fgetcsv($fh,0,",")) !== FALSE) {
+      //if that line has data in it
+      if(sizeof($data) > 0){
+        //add line from file to database
+        $sql = "INSERT INTO states (state_name, state_abbreviation)
+        VALUES ( '" . $data[0] . "', '" . $data[1] . "')";
+        $statement = db_tryQuery($sql,$dbh);
+      }
+    }
+  }
+  else {
+    echo "error could not open file " . $fileName . "\n\r";
+  }
+
 }
 elseif (sizeof($result) != 50) {
   echo "error in table 'states' size was: " . sizeof($result) . ". Please correct or empty table.\n\r";
@@ -188,7 +204,7 @@ function createNewStates($dbh){
   $sql = "CREATE TABLE IF NOT EXISTS states (
   id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   state_name VARCHAR(30) NOT NULL,
-  state_abbreviation VARCHAR(2) NOT NULL,
+  state_abbreviation VARCHAR(2) NOT NULL
   )";
   $query = db_tryQuery($sql,$dbh);
 }
@@ -198,9 +214,11 @@ function createNewVisits($dbh) {
 
   $sql = "CREATE TABLE IF NOT EXISTS visits (
   id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  person_id INT(6) UNSIGNED NOT NULL FOREIGN KEY REFERENCES people(id),
-  state_id INT(6) UNSIGNED NOT NULL FOREIGN KEY REFERENCES states(id),
-  date_visited DATE NOT NULL
+  person_id INT(6) UNSIGNED NOT NULL,
+  state_id INT(6) UNSIGNED NOT NULL,
+  date_visited DATE NOT NULL,
+  FOREIGN KEY (person_id) REFERENCES people(id),
+  FOREIGN KEY (state_id) REFERENCES states(id)
   )";
   $query = db_tryQuery($sql,$dbh);
 }
