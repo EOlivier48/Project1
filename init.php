@@ -20,14 +20,8 @@ if(sizeof($dblist)>0) {
 else {
   //if it does not exist then attempt to create it
   echo "db " . $dbname . " does not exist ... attempting to create\n\r";
-  $createresult = createDB($dbname,$dbh);
-  if($createresult) {
-    echo "db created!\n\r";
-  }
-  else {
-    echo "db creation failed.\n\r";
-    die();
-  }
+  createDB($dbname,$dbh);
+  echo "db created!\n\r";
 }
 
 //now that the db is garunteed to exist connect to it and check the TABLES
