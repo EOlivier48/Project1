@@ -8,7 +8,7 @@
 <h4>Add A New User.</h4>
 
 
-<form action="addinguser.php" method="post">
+<form action="addinguser.php" method="POST">
   First Name:<br>
   <input type="text" name="first_name"><br><br>
 

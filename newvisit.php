@@ -12,7 +12,7 @@
 <h4>Log A Visit.</h4>
 
 
-<form action="addingvisit.php" method="post">
+<form action="addingvisit.php" method="POST">
   Select User:<br>
   <select name="user"><br><br>
     <?php

@@ -16,9 +16,31 @@
   <p> Select a user and submit to view information</p>
   <select name="users" form="userform">
     <option value="" selected>Select a User</option>
+    <?php
+      ini_set('display_errors',1);
+
+
+      include 'projectlib.php';
+
+
+      $m = new ModelClass;
+      $m->initModel();
+      $userTable = $m->listUsers();
+      if(sizeof($userTable) > 0) {
+      //if there are users then add them to the table
+        foreach ($userTable as &$user) {
+          echo "<option value ='" . $user[0] . "'>" . $user[1] . " " . $user[2] . "</option>";
+        }
+      }
+      //else {
+
+      //}
+//    }
+
+     ?>
   </select>
-  <form action="" id="userform">
-    <input type="submit">
+  <form action = "showuser.php" id = "userform" method = "POST">
+    <input type = "submit">
   </form>
 
 
