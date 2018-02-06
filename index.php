@@ -18,10 +18,7 @@
     <option value="" selected>Select a User</option>
     <?php
       //ini_set('display_errors',1);
-
-
       include 'projectlib.php';
-
 
       $m = new ModelClass;
       $m->initModel();

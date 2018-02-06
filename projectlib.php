@@ -66,25 +66,26 @@
         $sql = "INSERT INTO people (first_name, last_name, favorite_food)
         VALUES ('". $first_name ."', '" . $last_name . "', '" . $fav_food . "')";
         $statement = $this->db_tryQuery($sql);
-
+        return TRUE;
+      }
+      else {
+        return FALSE;
       }
 
     }
 
     //function add visit
     function addVisit($person_id,$state_id,$date_visited) {
-
       //make sure parameters are valid
-      if(validateDate($date_visited,'MM/DD/YY') && 1000000 > $person_id && $person_id > 0 && 1000000 > $state_id && $state_id > 0) {
-        //date is a valid date, now format it correctly
-        $tempdate = explode('/',$date_visited);
-        $formattedDate = $tempdate[2] . "-" . $tempdate[0] . "-" . $tempdate[1];
-
+      if($this->validateDate($date_visited,'Y-m-d') && 1000000 > $person_id && $person_id > 0 && 1000000 > $state_id && $state_id > 0) {
         //do insert
         $sql = "INSERT INTO visits (person_id, state_id, date_visited)
-        VALUES (". $person_id .", " . $state_id . ", '" . $formattedDate . "')";
+        VALUES (". $person_id .", " . $state_id . ", '" . $date_visited . "')";
         $statement = $this->db_tryQuery($sql);
-
+        return TRUE;
+      }
+      else {
+        return FALSE;
       }
     }
 
@@ -123,7 +124,7 @@
       return $statement->fetchAll();
     }
 
-    function validateDate($date, $format = 'Y-m-d H:i:s') {
+    function validateDate($date, $format) {
         $d = DateTime::createFromFormat($format, $date);
         return $d && $d->format($format) == $date;
     }

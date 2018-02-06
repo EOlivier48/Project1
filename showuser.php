@@ -33,25 +33,29 @@
     $visit_table = $m->listVisitsUser($user_id);
     $state_table = $m->listStates();
 
-
-    echo "<table >";
-    echo "<tr>";
-    echo "<th>State</th>";
-    echo "<th>Date Visited</th>";
-    echo "</tr>";
-    foreach ($visit_table as $visit) {
+    if(sizeof($visit_table) >0) {
+      echo "<table >";
       echo "<tr>";
-      foreach ($state_table as $state) {
-        if($state[0] == $visit[2]) {
-          echo "<td>" . $state[1] . " (" . $state[2] . ")</td>";
-        }
-
-      }
-      $tempdate = explode("-",$visit[3]);
-      echo "<td>" . $tempdate[1] . "-" . $tempdate[2] . "-" . $tempdate[0] . "</td>";
+      echo "<th>State</th>";
+      echo "<th>Date Visited</th>";
       echo "</tr>";
+      foreach ($visit_table as $visit) {
+        echo "<tr>";
+        foreach ($state_table as $state) {
+          if($state[0] == $visit[2]) {
+            echo "<td>" . $state[1] . " (" . $state[2] . ")</td>";
+          }
+
+        }
+        $tempdate = explode("-",$visit[3]);
+        echo "<td>" . $tempdate[1] . "-" . $tempdate[2] . "-" . $tempdate[0] . "</td>";
+        echo "</tr>";
+     }
+     echo "</table>";
    }
-    echo "</table>";
+   else {
+     echo "<p>The selected user has not visited any states.</p>";
+   }
  }
   else {
     echo "<p>No user selected. Please return home and select a user.</p>";
