@@ -3,9 +3,9 @@
 <body>
   <h2>Trip Logger</h2>
 
-  <a href="http://localhost/">Home</br></a>
-  <a href="http://localhost/newuser.php">Add a User</br></a>
-  <a href="http://localhost/newvisit.php">Log a Visit</a>
+  <a href="index.php">Home</br></a>
+  <a href="newuser.php">Add a User</br></a>
+  <a href="newvisit.php">Log a Visit</a>
 <?php
   //get the new user info passed in from POST
   if(isset($_POST["user"]) && isset($_POST["state"]) && isset($_POST["date_visited"])) {

@@ -3,8 +3,8 @@
 <body>
 
 <h2>Trip Logger</h2>
-<a href="http://localhost/">Home</br></a>
-<a href="http://localhost/newvisit.php">Log a Visit</a>
+<a href="index.php">Home</br></a>
+<a href="newvisit.php">Log a Visit</a>
 <h4>Add A New User.</h4>
 
 

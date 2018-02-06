@@ -7,8 +7,8 @@
  ?>
 
 <h2>Trip Logger</h2>
-<a href="http://localhost/">Home</br></a>
-<a href="http://localhost/newuser.php">Add A User</a>
+<a href="index.php">Home</br></a>
+<a href="newuser.php">Add A User</a>
 <h4>Log A Visit.</h4>
 
 
