@@ -108,7 +108,7 @@
     //function list visits for a particular user
     function listVisitsUser($user_id) {
       //query to get all visits for the user
-      $sql = "SELECT * FROM vists WHERE user_id=" . $user_id;
+      $sql = "SELECT * FROM visits WHERE person_id=" . $user_id;
       //return array of visits state_id/date
       $statement = $this->db_tryQuery($sql);
       return $statement->fetchAll();

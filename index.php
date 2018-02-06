@@ -17,7 +17,7 @@
   <select name="users" form="userform">
     <option value="" selected>Select a User</option>
     <?php
-      ini_set('display_errors',1);
+      //ini_set('display_errors',1);
 
 
       include 'projectlib.php';
